@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		*{padding: 0;margin: 0;}
+		/*.box1{
+			width: 600px;height: 600px;background-color: orange;
+			position: relative;
+		}
+		.box2{
+			width: 400px;height: 400px;background-color: red;
+			position: absolute;left: 50px;
+		}
+		.box3{
+			width: 200px;height: 200px;background-color: green;
+			position: absolute;left: 50px;
+		}*/
+	</style>
+</head>
+<body>
+	<div id="app">
+		<input type="text" name="" v-model="message">
+		<p>{{message}}</p>
+		<input v-bind:type="type" name="">记住我
+	</div>
+	<img src="img/logo.jpg" alt="logo">
+	<p><input type="checkbox" name=""></p>
+	<button class="btn">获取</button>
+	<button class="btn1">切换</button>
+	<hr>
+	<div>
+		<ul>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+		<select id="single">
+			<option>Single</option>
+			<option>Single2</option>
+		</select>
+		<select id="multiple" multiple="multiple">
+			<option selected="selected">Multiple</option>
+			<option>Multiple2</option>
+			<option selected="selected">Multiple3</option>
+		</select><br/>
+		<input type="checkbox" value="check1"/> check1
+		<input type="checkbox" value="check2"/> check2
+		<input type="radio" value="radio1"/> radio1
+		<input type="radio" value="radio2"/> radio2
+	</div>
+	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script type="text/javascript" src="js/vue.js"></script>
+	<script>
+		// alert($(".box2").offset().left);
+		// alert($(".box2").position().left);
+		// $(".box3").offset({left:50,top:50});
+		$(":input").attr({name:"sex"})
+		$(".btn").click(function(){
+			alert($(":input").eq(1).prop("checked"));
+		});
+		$("img").attr("title",function(){return this.src});
+		$(".btn1").click(function(){
+			$("input[type='checkbox']").eq(1).prop("checked",function(index,val){
+				alert(val);
+				return !val;
+			});
+		});
+		$("li").addClass(function(i,cl){
+			console.log(i+" "+cl);
+			return 'item-' + $(this).index();
+		});
+		$("li").html(function(index,htm){
+			return "这个li元素的index是："+index;
+		});
+		$("#single").val("single2");
+		$("#multiple").val(["Multiple2", "Multiple1"]);
+		$("input").val(["check2", "radio1"]);
+		$.get("http://www.baidu.com",{w:1,x:2},function(data,status,xhr){
+			console.log(data,status,xhr);
+		}).done(function(){alert("成功")}).fail(function(){alert("失败")}).always(function(){alert(1)});
+		var app=new Vue({
+			el:"#app",
+			data:{
+				message:" ",
+				type:"checkbox"
+			}
+		});
+	</script>
+</body>
+</html>
