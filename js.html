@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<ul id='ul'>
+		<li>1</li>
+		<li>2</li>
+		<li>3</li>
+		<li>4</li>
+		<li>5</li>
+		<li>6</li>
+		<li>7</li>
+	</ul>
+	<script type="text/javascript">
+		// call 函数：
+		Function.prototype.bind=Function.prototype.bind||function(){
+			var _func=this,
+				_arg=arguments,
+				_this=arguments[0];
+			return function(){
+				var _args=Array.prototype.slice.call(arguments);
+				_args=_arg.contact(_args);
+				_func.apply(_this||null,_args);
+			}
+		}
+		EventUtil={
+			addhandler:function(obj,type,handler){
+				if(obj.addEventListener){
+					obj.addEventListener(type,handler,false);
+				}else if(obj.attachEvent){
+					obj.attachEvent('on'+type,handler);
+				}else{
+					obj['on'+type]=handler;
+				}
+			},
+			removehandler:function(obj,type,handler){
+				if(obj.removeListener){
+					obj.removeListener(type,handler,false);
+				}else if(obj.detchEvent){
+					obj.detchEvent('on'+type,handler);
+				}else{
+					obj['on'+type]=null;
+				}
+			},
+			getEvent:function(event){
+				return event||window.event;
+			},
+			getTarget:function(e){
+				return e.target||e.srcElement;
+			},
+			preventDefault:function(e){
+				if(e.preventDefault){
+					e.preventDefault;
+				}else{
+					e.returnValue=false;
+				}
+			},
+			stopPropagation:function(e){
+				if(e.stopPropagation){
+					e.stopPropagation;
+				}else{
+					e.cancelBubble=true;
+				}
+			}
+
+		}
+		// 数组排序
+		var arr=[1,12,2,13,4,8,5];
+		function compare(va1,va2){
+			if(va1>va2){
+				return 1;
+			}
+		}
+		console.log(arr.sort(compare));
+
+
+		// 数组去重
+		var arr1=[1,2,3,1,1,2,5];
+		function untilArr(arr){
+			var hash={}
+			var result=[];
+			arr.forEach(function(item,index,arr){
+				if(!hash[item]){
+					result.push(item);
+					hash[item]=true;
+				}
+			})
+			return result;
+		}
+		var arr2=arr1.filter(function(item,index,arr){
+			return arr.indexOf(item)==index;
+		})
+		// console.log(untilArr(arr1));
+		// console.log(untilArr(arr2));
+		// var x=10;var y=10;
+		// console.log(x+(y++));
+		var oUl=document.getElementById('ul');
+		function each(obj,fn){
+			for(var i=0;i<obj.length;i++){
+				fn(obj[i],i);
+			}
+		}
+		var lists=oUl.getElementsByTagName('li');
+		each(lists,function(list,index){
+			
+			list.onclick=function(e){
+				alert(index);
+			}
+		});
+		function stringTrim(str){
+			return str.match(/\s*(\w*\s*\w*)\s*/)[1];
+		}
+		var str="  hello world  ";
+		console.log("|"+stringTrim(str)+"|");
+		function isArray(){
+			return Array.isArray(arguments);
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<style type="text/css">
+		.btn{width: 60px;height: 30px;background-color: #f5df23;border:2px solid red;}
+		.btn:hover{background-color:#d2bf1c;cursor: pointer; }
+		.submit{width: 200px;}
+		.to-top{
+			width: 50px;height: 60px;background-color: #00bcd4;
+			position: fixed;bottom: 30px;right: 30px;text-align: center;
+			display: none;
+		}
+		.to-top i{
+			display: inline-block;border: 20px solid orange;
+			border-top:0;border-left-color: transparent;border-right-color:transparent;
+			margin-top: 10px;cursor: pointer;
+		}
+		.text p{
+			/*height: 1500px;*/
+		}
+		.to-top span{
+			font-weight: bolder;
+		}
+		.box{
+			width: 100px;height: 100px;background-color: #ff5722;position: relative;
+		}
+		.inner-box{
+			margin:auto;
+			top: 0;left: 0;right: 0;bottom: 0;
+			position: absolute;
+			background-color: red;
+			width: 50px;
+		}
+	</style>
+</head>
+<body>
+	<div class="hide">
+		<button class="btn">隐藏</button>
+	</div>
+	<div class="submit">
+		<form name="myform" action="">
+			<h3>登录</h3>
+			<p><input type="text" name="user" placeholder="名字"></p>
+			<p><input type="password" name="pass" placeholder="密码"></p>
+			<p><button class="btn">登录</button></p>
+		</form>
+	</div>
+	<div class="slide">
+		<button class="btn">折叠</button> 
+	</div>
+	<div class="animate">
+		<button class="btn">动画</button> 
+	</div>
+	<div class="box">
+		<div class="inner-box"></div>
+	</div>
+	<div><time></time></div>
+	<div class="text"><p></p></div>
+	<div class="to-top"><i></i><span>TOP</span></div>
+
+	<div id="shareBox">
+		<ul>
+			<li id="facebook">
+				<a target="_blank" rel="nofollow" data-shareWay="facebook">
+					<img alt="Post on Facebook" src="img/embed/f4Icon3.png" alt="Facebook" />
+				</a>
+			</li>
+			<li id="twitter">
+				<a target="_blank" rel="nofollow" data-shareWay="twitter">
+					<img alt="Tweet this" src="img/embed/f4Icon4.png" />
+				</a>
+			</li>
+			<li id="pinterest">
+				<a data-pin-do="buttonPin" data-pin-config="none" target="_blank" rel="nofollow" data-shareWay="pinterest">
+					<img alt="Pin it" src="img/embed/f4Icon5.png" />
+				</a>
+			</li>
+			<li id="email">
+				<a target="_blank" rel="nofollow" data-shareWay="email">
+					<img src="img/embed/f4Icon6.png" />
+				</a>
+			</li>
+		</ul>
+		<p></p>
+	</div>
+
+	<script type="text/javascript">
+		$(function(){
+			
+			$('.btn').click(function(){
+				var text=$('form[name="myform"]').serialize();
+				// $('.text').html(text);
+			});
+			$('.hide .btn').hover(function(){
+				$('form').fadeOut();
+			},function(){
+				$("form").fadeIn();
+			});
+			$(window).keypress(function(e){
+				alert(String.fromCharCode(e.which));
+			});
+			$(window).scroll(function(){
+				if($(this).scrollTop()>300){
+					$('.to-top').css("display","block");
+				}else{
+					$('.to-top').css('display',"none");
+				}
+			});
+			$('.to-top').click(function(){
+				$(window).scrollTop(0);
+			});
+			$(':input').focus(function(){
+				$(this).css("border-color","red");
+			}).blur(function(){
+				$(this).css("border-color",'');
+			});
+			$('.box').hover(function(){
+				$(this).fadeTo(500,0.7);
+			},function(){
+				$(this).fadeTo(500,1.0);
+			});
+			$('.slide .btn').click(function(){
+				$('.box').slideToggle();
+			});
+			$('.animate .btn').click(function(){
+				$('.box').animate({"width":"200px","height":"200px"},500,function(){
+					$(this).fadeOut();
+				});
+			});
+		})
+	</script>
+</body>
+</html>
